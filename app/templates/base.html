@@ -13,15 +13,17 @@
             <li><a href="{{ url_for('tres') }}">3B</a></li>
             <li><a href="{{ url_for('contact') }}">Contact</a></li>
             <li><a href="{{ url_for('about') }}">Acerca de</a></li>
+            <li><a href="{{ url_for('categories') }}">Categories</a></li>
             {% if user %}
             <li><a href="#">Logout</a></li>
             {% else %}
             <li><a href="#">Login</a></li>
             {% endif %}
-
         </ul>
     </nav>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
