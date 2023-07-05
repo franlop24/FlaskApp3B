@@ -3,6 +3,7 @@ from flask import (Flask, render_template, request,
 from db.categories import Category
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'my secret key'
 
 @app.route("/")
 def home():
