@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 
 from db.users import User
 
+################# Formulario de Registro ##################
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired(), Email()])
@@ -18,7 +19,7 @@ class RegisterForm(FlaskForm):
     ######## Validar Correo Unico #########
     def validate_email(self, field):
         ######## Consultar si el correo existe en la base de datos #######
-        if User.check_id(field.data):
+        if User.check_email(field.data):
             raise ValidationError('El correo ya existe')
 
     ######## Validar Username Unico #########
@@ -26,3 +27,10 @@ class RegisterForm(FlaskForm):
         ######## Consultar si el username existe en la base de datos #######
         if User.check_username(field.data):
             raise ValidationError('El username ya existe')
+        
+################# Formulario de Login ##################
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Ingresar')
+

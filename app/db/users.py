@@ -1,4 +1,4 @@
-from db import get_connection
+from .db import get_connection
 from werkzeug.security import generate_password_hash, check_password_hash
 
 mydb = get_connection()
@@ -8,18 +8,18 @@ class User:
     def __init__(self, 
                  username, 
                  password,
+                 email,
                  first_name = '',
                  last_name = '',
-                 email = '',
                  image = '',
-                 role='',
+                 role='customer',
                  id = None):
         self.id = id
         self.username = username
         self.password = password
+        self.email = email
         self.first_name = first_name
         self.last_name = last_name
-        self.email = email
         self.role = role
         self.image = image
 
@@ -28,8 +28,8 @@ class User:
         if self.id is None:
             with mydb.cursor() as cursor:
                 self.password = generate_password_hash(self.password)
-                sql = "INSERT INTO users(username, password) VALUES(%s, %s)"
-                val = (self.username, self.password)
+                sql = "INSERT INTO users(username, password, email) VALUES(%s, %s, %s)"
+                val = (self.username, self.password, self.email)
                 cursor.execute(sql, val)
                 mydb.commit()
                 self.id = cursor.lastrowid
@@ -72,9 +72,9 @@ class User:
             return None
     
     @staticmethod
-    def check_id(id):
+    def check_email(email):
         with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM users WHERE id = { id }"
+            sql = f"SELECT * FROM users WHERE email = '{ email }'"
             cursor.execute(sql)
 
             user = cursor.fetchone()
@@ -87,7 +87,7 @@ class User:
     @staticmethod
     def check_username(username):
         with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM users WHERE username = { username }"
+            sql = f"SELECT * FROM users WHERE username = '{ username }'"
             cursor.execute(sql)
 
             user = cursor.fetchone()
