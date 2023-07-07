@@ -53,5 +53,15 @@ def create_cat():
 
     return render_template('create_cat.html')
 
+@app.route('/categories/<int:id>/update/')
+def update_cat(id):
+    return "Vamos a Actualizar"
+
+@app.route('/categories/<int:id>/delete/')
+def delete_cat(id):
+    cat = Category.get(id)
+    cat.delete()
+    return redirect(url_for('categories'))
+
 if __name__ == '__main__':
     app.run(debug=True)

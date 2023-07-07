@@ -92,3 +92,15 @@ nav li a:hover {
     width: 400px;
     margin-bottom: 10px;
 }
+
+.fa {
+    font-size: 30px;
+}
+
+.fa-pencil {
+    color: green;
+}
+
+.fa-trash {
+    color: red;
+}

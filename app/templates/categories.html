@@ -23,7 +23,14 @@ Categories
                     <td>{{ cat.id }}</td>
                     <td>{{ cat.category }}</td>
                     <td>{{ cat.description }}</td>
-                    <td>Update | Eliminar</td>
+                    <td>
+                        <a href="{{ url_for('update_cat', id=cat.id) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a> -
+                        <a href="{{ url_for('delete_cat', id=cat.id) }}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

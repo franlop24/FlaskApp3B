@@ -72,6 +72,32 @@ class User:
             return None
     
     @staticmethod
+    def check_id(id):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT * FROM users WHERE id = { id }"
+            cursor.execute(sql)
+
+            user = cursor.fetchone()
+
+            if user:
+                return 'User exist'
+            else:
+                return None
+    
+    @staticmethod
+    def check_username(username):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT * FROM users WHERE username = { username }"
+            cursor.execute(sql)
+
+            user = cursor.fetchone()
+
+            if user:
+                return 'User exist'
+            else:
+                return None
+            
+    @staticmethod
     def get_by_password(username, password):
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT id, username, password FROM users WHERE username = %s"
