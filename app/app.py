@@ -15,32 +15,32 @@ app.config['SECRET_KEY'] = 'my secret key'
 @app.route("/")
 def home():
     name = "Francisco Lopez"
-    return render_template('home.html', name=name)
+    return render_template('home/home.html', name=name)
 
 @app.route("/3B/")
 def tres():
     alumnos = ['Gaby', 'Adriana', 'Alicia']
-    return render_template('tres.html', alumnos=alumnos)
+    return render_template('home/tres.html', alumnos=alumnos)
 
 @app.route("/contact/")
 def contact():
     user = "Frank"
-    return render_template('contact.html', user=user)
+    return render_template('home/contact.html', user=user)
 
 @app.route('/about/')
 def about():
     user = "Frank"
-    return render_template('about.html', user=user)
+    return render_template('home/about.html', user=user)
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html')
+    return render_template('errors/404.html')
 
 @app.route('/categories/')
 def categories():
     # Consultas Categorias de DB
     categories = Category.get_all()
-    return render_template('categories.html', 
+    return render_template('categories/categories.html', 
                            categories=categories)
 
 @app.route('/categories/create/', methods=('GET', 'POST'))
@@ -54,7 +54,7 @@ def create_cat():
         cat.save()
         return redirect(url_for('categories'))
 
-    return render_template('create_cat.html', form=form)
+    return render_template('categories/create_cat.html', form=form)
 
 @app.route('/categories/<int:id>/update/', methods=('GET', 'POST'))
 def update_cat(id):
@@ -67,7 +67,7 @@ def update_cat(id):
         return redirect(url_for('categories'))
     form.category.data = cat.category
     form.description.data = cat.description
-    return render_template('create_cat.html', form=form)
+    return render_template('categories/create_cat.html', form=form)
         
 
 @app.route('/categories/delete/', methods=('POST',))
@@ -90,7 +90,7 @@ def register():
         user.save()
 
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('users/register.html', form=form)
 
 @app.route('/users/login/', methods=('GET', 'POST'))
 def login():
@@ -104,7 +104,7 @@ def login():
             flash('Verifica tus Datos')
         else:
             return render_template('home.html', user=user)
-    return render_template('login.html', form=form)
+    return render_template('users/login.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

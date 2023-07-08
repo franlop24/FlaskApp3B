@@ -19,7 +19,7 @@
             {% if user %}
             <li><a href="#">Logout</a></li>
             {% else %}
-            <li><a href="#">Login</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
             {% endif %}
         </ul>
     </nav>
