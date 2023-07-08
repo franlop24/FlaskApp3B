@@ -7,6 +7,7 @@ from db.users import User
 
 # import from Forms
 from forms.user_forms import RegisterForm, LoginForm
+from forms.category_forms import CreateCategory, UpdateCategory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'my secret key'
@@ -44,28 +45,35 @@ def categories():
 
 @app.route('/categories/create/', methods=('GET', 'POST'))
 def create_cat():
-    if request.method == 'POST':
-        # Cuando demos click en Guardar
-        category = request.form['category']
-        description = request.form['description']
-        if not category:
-            flash('Debes ingresar la categoria')
-        elif not description:
-            flash('Debes ingresar la description')
-        else:
-            cat = Category(category, description)
-            cat.save()
-            return redirect(url_for('categories'))
+    form = CreateCategory()
 
-    return render_template('create_cat.html')
+    if form.validate_on_submit():
+        category = form.category.data
+        description = form.description.data
+        cat = Category(category, description)
+        cat.save()
+        return redirect(url_for('categories'))
 
-@app.route('/categories/<int:id>/update/')
+    return render_template('create_cat.html', form=form)
+
+@app.route('/categories/<int:id>/update/', methods=('GET', 'POST'))
 def update_cat(id):
-    return "Vamos a Actualizar"
-
-@app.route('/categories/<int:id>/delete/')
-def delete_cat(id):
+    form = UpdateCategory()
     cat = Category.get(id)
+    if form.validate_on_submit():
+        cat.category = form.category.data
+        cat.description = form.description.data
+        cat.save()
+        return redirect(url_for('categories'))
+    form.category.data = cat.category
+    form.description.data = cat.description
+    return render_template('create_cat.html', form=form)
+        
+
+@app.route('/categories/delete/', methods=('POST',))
+def delete_cat():
+    cat_id = request.form['cat_id']
+    cat = Category.get(cat_id)
     cat.delete()
     return redirect(url_for('categories'))
 

@@ -5,25 +5,35 @@ Crea Nueva Categoria
 {% endblock %}
     
 {% block content %}
-{% for message in get_flashed_messages() %}
-<p>{{ message }}</p>
-{% endfor %}
-<div class="form-container">
-   <form method="post">
-        <label for="category">Categoria</label><br>
-        <input type="text" 
-                name="category" 
-                id="category"
-                value="{{ request.form['category'] }}"
-                required><br>
-        <label for="description">Descripción</label><br>
-        <input type="text" 
-                name="description" 
-                id="description"
-                value="{{ request.form['description'] }}"
-                required>
-        <input type="submit" value="Guardar" class="btn">
-   </form>
-</div>
+<h1>Nueva Categoría</h1>
+<form method="post" class="form">
+      	{{ form.csrf_token }}
+      	<div>
+			{{ form.category.label }}
+			{{ form.category() }}
+			{% if form.category.errors %}
+				{% for error in form.category.errors %}
+					<p>{{ error }}</p>	
+				{% endfor %}
+			{% endif %}
+		</div>
+      	<div>
+			{{ form.description.label }}
+			{{ form.description() }}
+			{% if form.description.errors %}
+				{% for error in form.description.errors %}
+					<p>{{ error }}</p>	
+				{% endfor %}
+			{% endif %}
+		</div>
+		<div>
+			<div>
+				{{ form.submit(class="btn") }}
+			</div>
+			<div>
+				<a href="{{ url_for('categories') }}" class="btn">Regresar</a>
+			</div>
+		</div>
+	</form>
 {% endblock %}
     

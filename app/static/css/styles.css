@@ -79,20 +79,6 @@ nav li a:hover {
     color: white;
   }
 
-.form-container {
-    width: 50%;
-    margin: 0 auto;
-    background-color: antiquewhite;
-    box-shadow: 10px 10px 10px 10px 10px 10px #444444;
-    display: flex;
-    justify-content: center;
-}
-
-.form-container input {
-    width: 400px;
-    margin-bottom: 10px;
-}
-
 .fa {
     font-size: 30px;
 }
@@ -103,4 +89,22 @@ nav li a:hover {
 
 .fa-trash {
     color: red;
+}
+
+table form {
+    display: inline-block;
+}
+
+table a {
+    text-decoration: none;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+    box-shadow: -5px 5px 5px grey;
 }
