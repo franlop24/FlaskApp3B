@@ -1,8 +1,8 @@
-
 from flask_wtf import FlaskForm
 from wtforms import (StringField, PasswordField, EmailField, 
                      SubmitField, ValidationError)
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo, Length
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 from models.users import User
 
@@ -34,3 +34,15 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Ingresar')
 
+################ Formulario de Perfil ################
+class ProfileForm(FlaskForm):
+    # username No se edita
+    # password No se edita
+    # email, Verificar antes de actualizar
+    first_name = StringField('Nombre', 
+                             validators=[DataRequired(), Length(min=3, max=30)])
+    last_name = StringField('Apellidos', 
+                            validators=[DataRequired(), Length(min=10, max=40)])
+    image = FileField('Imagen de Perfil', 
+                      validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Solo imagenes!')])
+    submit = SubmitField('Actualizar')
