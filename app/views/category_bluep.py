@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 
 from models.categories import Category
 
-from forms.category_forms import CreateCategory, UpdateCategory
+from forms.category_forms import CreateCategoryForm, UpdateCategoryForm
 
 category_bluep = Blueprint('category', __name__)
 
@@ -15,7 +15,7 @@ def categories():
 
 @category_bluep.route('/categories/create/', methods=('GET', 'POST'))
 def create_cat():
-    form = CreateCategory()
+    form = CreateCategoryForm()
 
     if form.validate_on_submit():
         category = form.category.data
@@ -28,7 +28,7 @@ def create_cat():
 
 @category_bluep.route('/categories/<int:id>/update/', methods=('GET', 'POST'))
 def update_cat(id):
-    form = UpdateCategory()
+    form = UpdateCategoryForm()
     cat = Category.get(id)
     if form.validate_on_submit():
         cat.category = form.category.data
