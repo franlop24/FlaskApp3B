@@ -10,16 +10,16 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('tres') }}">3B</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact</a></li>
-            <li><a href="{{ url_for('about') }}">Acerca de</a></li>
-            <li><a href="{{ url_for('categories') }}">Categories</a></li>
-            <li><a href="{{ url_for('register') }}">Registro</a></li>
+            <li><a href="{{ url_for('home.home') }}">Home</a></li>
+            <li><a href="{{ url_for('home.tres') }}">3B</a></li>
+            <li><a href="{{ url_for('home.contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('home.about') }}">Acerca de</a></li>
+            <li><a href="{{ url_for('category.categories') }}">Categories</a></li>
+            <li><a href="{{ url_for('user.register') }}">Registro</a></li>
             {% if user %}
             <li><a href="#">Logout</a></li>
             {% else %}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('user.login') }}">Login</a></li>
             {% endif %}
         </ul>
     </nav>
