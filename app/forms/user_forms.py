@@ -4,7 +4,7 @@ from wtforms import (StringField, PasswordField, EmailField,
                      SubmitField, ValidationError)
 from wtforms.validators import DataRequired, Email, EqualTo
 
-from db.users import User
+from models.users import User
 
 ################# Formulario de Registro ##################
 class RegisterForm(FlaskForm):
