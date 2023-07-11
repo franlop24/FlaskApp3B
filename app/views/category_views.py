@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, flash, url_for
 
 from models.categories import Category
 
+from forms.category_forms import CreateCategoryForm, UpdateCategoryForm
+
 category_views = Blueprint('category',__name__)
 
 @category_views.route('/categories/')
@@ -13,24 +15,28 @@ def categories():
 
 @category_views.route('/categories/create/', methods=('GET', 'POST'))
 def create_cat():
-    if request.method == 'POST':
-        # Cuando demos click en Guardar
-        category = request.form['category']
-        description = request.form['description']
-        if not category:
-            flash('Debes ingresar la categoria')
-        elif not description:
-            flash('Debes ingresar la description')
-        else:
-            cat = Category(category, description)
-            cat.save()
-            return redirect(url_for('category.categories'))
+    form = CreateCategoryForm()
+    if form.validate_on_submit():
+        category = form.category.data
+        description = form.description.data
+        cat = Category(category, description)
+        cat.save()
+        return redirect(url_for('category.categories'))
+    return render_template('category/create_cat.html', form=form)
 
-    return render_template('category/create_cat.html')
-
-@category_views.route('/categories/<int:id>/update/')
+@category_views.route('/categories/<int:id>/update/', methods=('GET', 'POST'))
 def update_cat(id):
-    return "Vamos a Actualizar"
+    form = UpdateCategoryForm()
+    cat = Category.get(id)
+    if form.validate_on_submit():
+        cat.category = form.category.data
+        cat.description = form.description.data
+        cat.save()
+        return redirect(url_for('category.categories'))
+    form.category.data = cat.category
+    form.description.data = cat.description
+    return render_template('category/create_cat.html', form=form)
+
 
 @category_views.route('/categories/<int:id>/delete/')
 def delete_cat(id):
