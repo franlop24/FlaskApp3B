@@ -38,7 +38,7 @@ def update_cat(id):
     return render_template('category/create_cat.html', form=form)
 
 
-@category_views.route('/categories/<int:id>/delete/')
+@category_views.route('/categories/<int:id>/delete/', methods=('POST',))
 def delete_cat(id):
     cat = Category.get(id)
     cat.delete()

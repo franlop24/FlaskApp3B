@@ -104,3 +104,11 @@ nav li a:hover {
 .fa-trash {
     color: red;
 }
+
+table form {
+    display: inline-block;
+}
+
+table a {
+    text-decoration: none;
+}
