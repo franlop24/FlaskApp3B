@@ -20,7 +20,7 @@ nav ul {
 nav li {
     list-style: none;
     display: inline-block;
-    width: 150px;
+    width: 100px;
     height: 30px;
 }
 
@@ -103,4 +103,12 @@ nav li a:hover {
 
 .fa-trash {
     color: red;
+}
+
+table form {
+    display: inline-block;
+}
+
+table a {
+    text-decoration: none;
 }

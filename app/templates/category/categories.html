@@ -26,10 +26,14 @@ Categories
                     <td>
                         <a href="{{ url_for('category.update_cat', id=cat.id) }}">
                             <i class="fa fa-pencil"></i>
-                        </a> -
-                        <a href="{{ url_for('category.delete_cat', id=cat.id) }}">
-                            <i class="fa fa-trash"></i>
                         </a>
+                        <form 
+                            action="{{ url_for('category.delete_cat', id=cat.id) }}" 
+                            method="post">
+                            <button type="submit" onclick="return confirm('Seguro?')">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
