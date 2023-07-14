@@ -1,4 +1,4 @@
-from db import get_connection
+from .db import get_connection
 
 mydb = get_connection()
 
@@ -16,7 +16,7 @@ class Product:
         self.id = id
 
     def save(self):
-        if self.id != None:
+        if self.id is None:
             with mydb.cursor() as cursor:
                 sql = "INSERT INTO products(name, description, price, stock, category_id, image) "
                 sql += "VALUES(%s, %s, %s, %s, %s, %s)"
@@ -69,7 +69,7 @@ class Product:
         with mydb.cursor(dictionary=True) as cursor:
             sql = f"SELECT * FROM products LIMIT { limit } OFFSET { offset }"
             cursor.execute(sql)
-            result = []
+            result = cursor.fetchall()
             for product in result:
                 products.append(Product(name=product["name"],
                                   description=product["description"],
@@ -79,14 +79,14 @@ class Product:
                                   image=product["image"],
                                   id=product["id"]))
             return products
-
+    
     @staticmethod
     def get_by_category(id_category):
         products = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = f"SELECT * FROM products WHERE category_id = { id_category }"
             cursor.execute(sql)
-            result = []
+            result = cursor.fetchall()
             for product in result:
                 products.append(Product(name=product["name"],
                                   description=product["description"],
