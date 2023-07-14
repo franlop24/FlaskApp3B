@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+<div>
+    {% if image %}
+        <img src="{{ url_for('static', filename='images/profiles/' + image) }}" 
+            alt="Imagen de Perfil de Usuario"
+            width="200px">
+    {% else %}
+        <img src="{{ url_for('static', filename='images/profiles/user-image.png') }}"
+            alt="Imagen de Perfil de Usuario"
+            width="200px">
+    {% endif %}
+</div>
+<form method="post", enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div>
+        {{ form.first_name.label }}
+        {{ form.first_name() }}
+        {% if form.first_name.errors %}
+            {% for error in form.first_name.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.last_name.label }}
+        {{ form.last_name() }}
+        {% if form.last_name.errors %}
+            {% for error in form.last_name.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.image.label }}
+        {{ form.image() }}
+        {% if form.image.errors %}
+            {% for error in form.image.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit(class="btn") }}
+    </div>
+</form>
+{% endblock %}
