@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for, abort
 from forms.product_forms import CreateProductForm, UpdateProductForm
 
 from models.products import Product
+from models.categories import Category
 
 from utils.file_handler import save_image
 
@@ -62,3 +63,10 @@ def update(id):
     form.category_id.data = product.category_id
     image = product.image
     return render_template('product/create_product.html', form=form, image=image)
+
+@product_views.route('/products/<int:id>/detail/')
+def detail(id):
+    product = Product.get(id)
+    if product is None: abort(404)
+    cat = Category.get(product.category_id)
+    return render_template('product/detail.html', product=product, cat=cat)
