@@ -6,10 +6,34 @@ Productos
 
 {% block content %}
 <h1>Crea / Edita Productos</h1>
-<form method="post">
-    <div>Input para Name</div>
-    <div>Input para Description</div>
-    <div>Input para Categoria</div>
-    <div>Input para Submit</div>
+<form method="post" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div>
+        {{ form.name.label }}
+        {{ form.name() }}
+    </div>
+    <div>
+        {{ form.description.label }}
+        {{ form.description() }}
+    </div>
+    <div>
+        {{ form.price.label }}
+        {{ form.price() }}
+    </div>
+    <div>
+        {{ form.stock.label }}    
+        {{ form.stock() }}
+    </div>
+    <div>
+        {{ form.category_id.label }}
+        {{ form.category_id() }}
+    </div>
+    <div>
+        {{ form.image.label }}
+        {{ form.image() }}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
 </form>
 {% endblock %}
