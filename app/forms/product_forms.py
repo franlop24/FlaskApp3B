@@ -7,10 +7,7 @@ from models.categories import Category
 
 class CreateProductForm(FlaskForm):
 
-    categories = Category.get_all()
-    cats = [(-1, '')]
-    for cat in categories:
-        cats.append((cat.id, cat.category))
+    cats=[]
 
     name = StringField('Nombre', validators=[DataRequired()])
     description = TextAreaField('Descripción', validators=[DataRequired()])
@@ -23,10 +20,10 @@ class CreateProductForm(FlaskForm):
 
 class UpdateProductForm(FlaskForm):
 
-    categories = Category.get_all()
-    cats = [(-1, '')]
-    for cat in categories:
-        cats.append((cat.id, cat.category))
+    # categories = Category.get_all()
+    cats = []
+    # for cat in categories:
+    #     cats.append((cat.id, cat.category))
 
     name = StringField('Nombre', validators=[DataRequired()])
     description = TextAreaField('Descripción', validators=[DataRequired()])

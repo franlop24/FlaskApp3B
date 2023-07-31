@@ -17,6 +17,11 @@ def home():
 @product_views.route('/products/create/', methods=('GET', 'POST'))
 def create():
     form = CreateProductForm()
+    categories = Category.get_all()
+    cats = [(-1, '')]
+    for cat in categories:
+        cats.append((cat.id, cat.category))
+    form.category_id.choices = cats
 
     if form.validate_on_submit():
         name = form.name.data
@@ -41,6 +46,11 @@ def create():
 @product_views.route('/products/<int:id>/update/', methods=('GET', 'POST'))
 def update(id):
     form = UpdateProductForm()
+    categories = Category.get_all()
+    cats = [(-1, '')]
+    for cat in categories:
+        cats.append((cat.id, cat.category))
+    form.category_id.choices = cats
     product = Product.get(id)
     if product is None:
         abort(404)
