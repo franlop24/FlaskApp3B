@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, abort
 
-from forms.product_forms import CreateProductForm
+from forms.product_forms import CreateProductForm, UpdateProductForm
 
 from models.products import Product
 
@@ -36,3 +36,29 @@ def create():
         return redirect(url_for('product.home'))
 
     return render_template('product/create_product.html', form=form)
+
+@product_views.route('/products/<int:id>/update/', methods=('GET', 'POST'))
+def update(id):
+    form = UpdateProductForm()
+    product = Product.get(id)
+    if product is None:
+        abort(404)
+    if form.validate_on_submit():
+        product.name = form.name.data
+        product.description = form.description.data
+        product.price = form.price.data
+        product.stock = form.stock.data
+        product.category_id = form.category_id.data
+        f = form.image.data
+        if f:
+            image = save_image(f, 'images/products')
+            product.image = image
+        product.save()
+        return redirect(url_for('product.home'))
+    form.name.data = product.name
+    form.description.data = product.description
+    form.price.data = product.price
+    form.stock.data = product.stock
+    form.category_id.data = product.category_id
+    image = product.image
+    return render_template('product/create_product.html', form=form, image=image)

@@ -28,6 +28,11 @@ Productos
         {{ form.category_id.label }}
         {{ form.category_id() }}
     </div>
+    {% if image %}
+    <div>
+        <img src="{{ url_for('static', filename='images/products/' + image) }}" alt="" width="200px">
+    </div>
+    {% endif %}
     <div>
         {{ form.image.label }}
         {{ form.image() }}
