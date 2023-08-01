@@ -112,3 +112,36 @@ table form {
 table a {
     text-decoration: none;
 }
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid grey;
+    z-index: -1;
+}
+
+.card-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 280px;
+    border-radius: 10px;
+    background-color: lightgoldenrodyellow;
+    box-shadow: 3px 3px 3px 3px #ccc;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+.card img {
+    width: 90%;
+}

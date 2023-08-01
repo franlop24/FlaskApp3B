@@ -1,11 +1,14 @@
 from flask import Blueprint, render_template
 
+from models.products import Product
+
 home_views = Blueprint('home',__name__)
 
 @home_views.route("/")
 def home():
-    name = "Francisco Lopez"
-    return render_template('home/home.html', name=name)
+    limit = 6
+    products = Product.get_all(limit=limit)
+    return render_template('home/home.html', products=products)
 
 @home_views.route("/3B/")
 def tres():
