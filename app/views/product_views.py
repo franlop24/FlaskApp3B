@@ -10,9 +10,13 @@ from utils.file_handler import save_image
 product_views = Blueprint('product', __name__)
 
 @product_views.route('/products/')
-def home():
-    products = Product.get_all()
-    return render_template('product/products.html', products=products)
+@product_views.route('/products/<int:page>/')
+def home(page=1):
+    limit = 5
+    products = Product.get_all(limit=limit, page=page)
+    total_products = Product.count()
+    pages = total_products // limit
+    return render_template('product/products.html', products=products, pages=pages)
 
 @product_views.route('/products/create/', methods=('GET', 'POST'))
 def create():
@@ -30,6 +34,7 @@ def create():
         stock = form.stock.data
         category_id = form.category_id.data
         f = form.image.data
+        image = ""
         if f:
             image = save_image(f, 'images/products')
         product = Product(name=name, 
@@ -80,3 +85,10 @@ def detail(id):
     if product is None: abort(404)
     cat = Category.get(product.category_id)
     return render_template('product/detail.html', product=product, cat=cat)
+
+@product_views.route('/product/<int:id>/delete/', methods=['POST'])
+def delete(id):
+    product = Product.get(id)
+    if product is None: abort(404)
+    product.delete()
+    return redirect(url_for('product.home'))

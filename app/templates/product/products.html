@@ -6,6 +6,8 @@ Productos
 
 {% block content %}
 <h1>Lista de Productos</h1>
+<a href="{{ url_for('product.create') }}" class="btn">Registrar Nuevo</a>
+<br>
 <table>
     <thead>
         <tr>
@@ -18,12 +20,27 @@ Productos
     <tbody>
         {% for product in products %}
         <tr>
-            <td>{{ product.id }}</td>
+            <td>
+                <a href="{{ url_for('product.detail', id=product.id) }}">{{ product.id }}</a>
+            </td>
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
-            <td>Eliminar / Actualizar</td>
+            <td>
+                <a href="{{ url_for('product.update', id=product.id) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <form action="{{ url_for('product.delete', id=product.id) }}">
+                    <button type="submit" onclick="return confirm('Seguro?')">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<hr>
+{% for i in range(pages) %}
+<a href="{{ url_for('product.home', page=(i + 1)) }}">{{ i + 1 }}</a>
+{% endfor %}
 {% endblock %}

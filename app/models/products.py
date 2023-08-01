@@ -99,3 +99,11 @@ class Product:
 
     def __str__(self):
         return f"{ self.name } { self.description }"
+    
+    @staticmethod
+    def count():
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT count(id) as total FROM products"
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            return result['total']
