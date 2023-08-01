@@ -6,7 +6,7 @@ home_views = Blueprint('home',__name__)
 
 @home_views.route("/")
 def home():
-    limit = 6
+    limit = 3
     products = Product.get_all(limit=limit)
     return render_template('home/home.html', products=products)
 

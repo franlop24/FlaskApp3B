@@ -7,9 +7,9 @@
 <div class="card-container">
 {%for product in products %}
     <div class="card">
-        <img src="{{ url_for('static', filename='images/profiles/user-image.png') }}" alt="">
-        <h2>Producto</h2>
-        <p>Description</p>
+        <img src="{{ url_for('static', filename='images/products/' + product.image ) }}" alt="">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
         <a href="{{ url_for('product.detail', id=product.id) }}" class="btn">Ver más</a>
     </div>
     {% endfor %}

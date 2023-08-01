@@ -12,7 +12,7 @@ product_views = Blueprint('product', __name__)
 @product_views.route('/products/')
 @product_views.route('/products/<int:page>/')
 def home(page=1):
-    limit = 5
+    limit = 3
     products = Product.get_all(limit=limit, page=page)
     total_products = Product.count()
     pages = total_products // limit
