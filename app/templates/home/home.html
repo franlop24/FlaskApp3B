@@ -4,6 +4,16 @@
 
 {% block content %}    
 <h1>Welcome Home</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    <div>
+        {{ form.categories.label }}
+        {{ form.categories() }}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
 <div class="card-container">
 {%for product in products %}
     <div class="card">

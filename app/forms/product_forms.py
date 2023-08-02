@@ -3,8 +3,6 @@ from wtforms import StringField, SubmitField, FloatField, IntegerField,TextAreaF
 from wtforms.validators import DataRequired, NumberRange
 from flask_wtf.file import FileField, FileAllowed
 
-from models.categories import Category
-
 class CreateProductForm(FlaskForm):
 
     cats=[]
@@ -20,10 +18,7 @@ class CreateProductForm(FlaskForm):
 
 class UpdateProductForm(FlaskForm):
 
-    # categories = Category.get_all()
     cats = []
-    # for cat in categories:
-    #     cats.append((cat.id, cat.category))
 
     name = StringField('Nombre', validators=[DataRequired()])
     description = TextAreaField('Descripción', validators=[DataRequired()])

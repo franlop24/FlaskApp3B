@@ -1,14 +1,33 @@
 from flask import Blueprint, render_template
 
 from models.products import Product
+from models.categories import Category
+
+from forms.home_forms import CategoryForm
 
 home_views = Blueprint('home',__name__)
 
-@home_views.route("/")
+@home_views.route("/", methods=['GET', 'POST'])
 def home():
-    limit = 3
-    products = Product.get_all(limit=limit)
-    return render_template('home/home.html', products=products)
+    # Recupara categorias
+    categories = Category.get_all()
+    # Crea una lista con categorias para el Select
+    cats = [('-1', 'Todos')]
+    for category in categories:
+        cats.append((category.id, category.category))
+    # Crea instancia de Formulario
+    form = CategoryForm()
+    # Envía la lista al Select
+    form.categories.choices = cats
+    # Envía productos de categoria seleccionada al home
+    if form.validate_on_submit():
+        cat_id = form.categories.data
+        products = Product.get_by_category(cat_id)
+        form.categories.data = cat_id
+        return render_template('home/home.html', products=products, cats=cats, form=form)
+    # Si no ha sido presionado Buscar envía todos los productos
+    products = Product.get_all(limit=6)
+    return render_template('home/home.html', products=products, cats=cats, form=form)
 
 @home_views.route("/3B/")
 def tres():
