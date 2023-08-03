@@ -29,7 +29,7 @@ Productos
                 <a href="{{ url_for('product.update', id=product.id) }}">
                     <i class="fa fa-pencil"></i>
                 </a>
-                <form action="{{ url_for('product.delete', id=product.id) }}">
+                <form action="{{ url_for('product.delete', id=product.id) }}" method="post">
                     <button type="submit" onclick="return confirm('Seguro?')">
                         <i class="fa fa-trash"></i>
                     </button>

@@ -40,7 +40,7 @@ class Product:
 
     def delete(self):
         with mydb.cursor() as cursor:
-            sql = f"DELETE FROM products WHERE id = { id }"
+            sql = f"DELETE FROM products WHERE id = { self.id }"
             cursor.execute(sql)
             mydb.commit()
             return self.id
