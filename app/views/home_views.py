@@ -22,7 +22,10 @@ def home():
     # Envía productos de categoria seleccionada al home
     if form.validate_on_submit():
         cat_id = form.categories.data
-        products = Product.get_by_category(cat_id)
+        if cat_id == -1:
+            products = Product.get_all(limit=6)
+        else:
+            products = Product.get_by_category(cat_id)
         form.categories.data = cat_id
         return render_template('home/home.html', products=products, cats=cats, form=form)
     # Si no ha sido presionado Buscar envía todos los productos
